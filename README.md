@@ -12,6 +12,7 @@ docker-compose --version<br />
 docker-compose pull --ignore-pull-failures || true<br />
 docker-compose build --pull<br />
 docker-compose up -d<br />
+docker-compose exec php composer install<br />
 docker-compose exec php bin/console cache:clear<br />
 docker-compose exec php bin/console doctrine:schema:create<br />
 docker-compose exec php bin/console doctrine:schema:update --force<br />
