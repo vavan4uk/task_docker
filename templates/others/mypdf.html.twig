@@ -1,0 +1,17 @@
+<table class="table">
+        
+{% for item in tasks %}
+    <tr class="color">
+            <td>{{ item.title }}</td>
+            <td>{{ item.comment }}</td>
+            <td>{{ item.dateAt }}</td>
+            <td>{{ item.timespent }}</td>
+    </tr>
+{% endfor %}
+<tr class="color">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ totalTime }}</td>
+    </tr>
+</table>

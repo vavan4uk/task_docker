@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'user_edit' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                <h1>{{ 'title.register_user'|trans }}</h1>
+
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+
+                    <button type="submit" class="btn btn-primary index-reg">
+                        {{ 'action.signup'|trans }}
+                    </button>
+                {{ form_end(form) }}
+            </div>
+            </div>
+        </div>
+
+        
+    </div>
+                        
+                        
+    
+{% endblock %}
+

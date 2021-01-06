@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'blog_index' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#startdate").datepicker({
+                format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            startDate: '0d',
+                todayBtn:  1,
+                autoclose: true,
+            }).on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('#enddate').datepicker('setStartDate', minDate);
+                $('#enddate').datepicker('setDate', minDate); // <--THIS IS THE LINE ADDED
+            });
+
+            $("#enddate").datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            startDate: '0d'
+            })
+                .on('changeDate', function (selected) {
+                    var maxDate = new Date(selected.date.valueOf());
+                    $('#startdate').datepicker('setEndDate', maxDate);
+                });
+
+            
+            /*
+            $('.input-daterange').datepicker({
+            format: 'dd-mm-yyyy',
+            todayHighlight: true,
+            startDate: '0d'
+            });*/
+        });
+    </script>
+{% endblock %}
+{#
+    the homepage is a special page which displays neither a header nor a footer.
+    this is done with the 'trick' of defining empty Twig blocks without any content
+#}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block body %}
+    <a class="btn btn-primary btn-lg" href="{{ path('task_post') }}">
+        {{ 'action.post_task'|trans }}
+    </a>
+    
+    <div class="pt-4">
+        <form autocomplete="off" method="get">
+            
+
+
+
+
+
+<div class="input-group">
+  
+  <input type="text" id="startdate" class="form-control" {% if params.start_date is defined %}value="{{ params.start_date|date('Y-m-d') }}"{% endif %} placeholder="{{ 'help.start_date'|trans }}" name="search[start_date]" readonly> 
+  <input type="text" id="enddate" class="form-control" {% if params.end_date is defined %}value="{{ params.end_date|date('Y-m-d') }}"{% endif %} placeholder="{{ 'help.end_date'|trans }}" name="search[end_date]"  readonly>
+  <div class="input-group-append" id="button-addon4">
+    <button type="submit" name="search[submit]" class="btn btn-outline-secondary" type="button">{{ 'action.search'|trans }}</button>
+    <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ 'action.download'|trans }}
+                    </button>
+                    <div class="dropdown-menu"  aria-labelledby="btnGroupDrop1">
+                        <button type="submit" name="search[download]" value="pdf" class="dropdown-item"   >
+                            {{ 'action.downloadpdf'|trans }}
+                        </button>
+                        <button type="submit" name="search[download]" value="csv"  class="dropdown-item"   >
+                            {{ 'action.downloadcsv'|trans }}
+                        </button>
+                        <button type="submit" name="search[download]" value="excel"  class="dropdown-item"   >
+                            {{ 'action.downloadexcel'|trans }}
+                        </button>
+                    </div>
+        </div>
+  </div>
+</div>
+            
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">{{ 'title.title'|trans }}</th>
+              <th scope="col">{{ 'title.comment'|trans }}</th>
+              <th scope="col">{{ 'title.date'|trans }}</th>
+              <th scope="col">{{ 'title.spent'|trans }}</th>
+            </tr>
+        </thead>
+        {% for item in pagination %}
+        <tr class="color">
+            <td>{{ item.tid }}</td>
+            <td>{{ item.ttitle }}</td>
+            <td>{{ item.tcomment }}</td>
+            <td>{{ item.tdateAt|date("Y-m-d H:i") }}</td>
+            <td>{{ item.ttimespent }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}            
+    </div>
+</table>
+{% endblock %}

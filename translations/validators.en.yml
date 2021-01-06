@@ -1,0 +1,5 @@
+form.alertmessage.email.notvalid: "This value is not a valid email address."
+form.alertmessage.email.notvalid2: "This value is not a valid email address."
+form.alertmessage.email.registered: "Email already registered"
+task.too_short_comment: "Comment must be at least 10 characters in length"
+task.too_short_title: "Title must be at least 2 characters in length"
