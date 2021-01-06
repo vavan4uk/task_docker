@@ -23,4 +23,4 @@ open http://localhost<br />
 For run functionality test ( after complete instalation ) <br />
 cd ~/ <br />
 cd task <br />
-vendor/bin/codecept run --steps <br />
+docker-compose exec php vendor/bin/codecept run --steps <br />
